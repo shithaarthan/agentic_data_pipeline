@@ -1,0 +1,16 @@
+name: indicators_checkpoint
+config_version: 1.0
+
+validations:
+  - batch_request:
+      datasource_name: foxa_lakehouse
+      data_connector_name: default_inferred_data_connector
+      data_asset_name: indicators
+    expectation_suite_name: silver_indicators_suite
+    action_list:
+      - name: store_validation_result
+        action:
+          class_name: StoreValidationResultAction
+      - name: update_data_docs
+        action:
+          class_name: UpdateDataDocsAction

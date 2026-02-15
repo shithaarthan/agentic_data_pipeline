@@ -1,0 +1,27 @@
+foxa_profile:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: ../data/foxa_duckdb.db
+      schema: dbt_dev
+      
+    prod:
+      type: duckdb
+      path: ../data/foxa_duckdb.db
+      schema: dbt_prod
+      
+    # For Iceberg integration (advanced)
+    iceberg:
+      type: duckdb
+      path: ../data/foxa_duckdb.db
+      extensions:
+        - iceberg
+        - httpfs
+      settings:
+        s3_region: us-east-1
+        s3_endpoint: http://localhost:9000
+        s3_access_key_id: minioadmin
+        s3_secret_access_key: minioadmin
+        s3_use_ssl: false
+        s3_url_style: path

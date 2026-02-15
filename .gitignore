@@ -1,0 +1,68 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual Environment
+venv/
+.venv/
+env/
+
+# Environment Variables
+.env
+.env.local
+
+# Database
+*.db
+*.sqlite3
+dev.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+
+# MLflow
+mlruns/
+
+# Data (large files - keep structure only)
+data/ohlcv/*.parquet
+data/fundamental_cache/*.json
+data/signals/*.json
+
+# MinIO local data
+minio_data/
+
+# Docker
+.docker/
+
+# Miscellaneous
+*.resolved.txt
+implementation_plan.md.resolved.txt
+debug_output.txt
+test_*.py
+retry_*.py
+missing_stocks.json
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Knowledge files (generated, keep templates)
+# knowledge/stocks/*.md  # Uncomment to exclude generated stock files

@@ -1,0 +1,36 @@
+version: 2
+
+sources:
+  - name: bronze
+    description: "Raw data from ingestion layer"
+    tables:
+      - name: ohlcv
+        description: "Raw OHLCV market data"
+        columns:
+          - name: symbol
+            tests: [not_null]
+          - name: date
+            tests: [not_null]
+          - name: close
+            tests: [not_null]
+      
+      - name: fundamentals
+        description: "Raw fundamental data"
+  
+  - name: silver
+    description: "Cleaned and transformed data"
+    tables:
+      - name: ohlcv_clean
+        description: "Cleaned OHLCV data with derived features"
+      
+      - name: indicators
+        description: "Technical indicators calculated from OHLCV"
+  
+  - name: gold
+    description: "Analytics-ready aggregated data"
+    tables:
+      - name: signals
+        description: "Trading signals from Kimi scanner"
+      
+      - name: agent_analysis
+        description: "AI agent analysis results"

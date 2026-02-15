@@ -1,0 +1,1 @@
+# FastAPI REST API for Foxa Trading Platform

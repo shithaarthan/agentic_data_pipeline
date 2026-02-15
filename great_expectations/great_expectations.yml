@@ -1,0 +1,103 @@
+# Welcome to Great Expectations! Always know what to expect from your data.
+#
+# Here you can define datasources, batch kwargs generators, integrations and
+# more. This file is intended to be committed to your repo.
+
+config_version: 3.0
+
+datasources:
+  foxa_lakehouse:
+    class_name: Datasource
+    execution_engine:
+      class_name: PandasExecutionEngine
+    data_connectors:
+      default_inferred_data_connector:
+        class_name: InferredAssetFilesystemDataConnector
+        base_directory: ../data
+        default_regex:
+          group_names:
+            - data_asset_name
+          pattern: (.*)
+      
+      # For reading Iceberg tables via pandas
+      iceberg_connector:
+        class_name: ConfiguredAssetFilesystemDataConnector
+        base_directory: ../data
+        assets:
+          bronze_ohlcv:
+            pattern: ohlvc_parquet/.*\.parquet
+            group_names:
+              - symbol
+
+# This config file supports variable substitution which enables: 1) keeping
+# secrets out of source control & 2) environment-based configuration changes
+# such as staging vs prod.
+#
+# When GX encounters substitution syntax (like `my_key: ${my_value}` or
+# `my_key: $my_value`) in the great_expectations.yml file, it will attempt
+# to replace the value of `my_key` with the value from an environment
+# variable `my_value` or a corresponding key in a config_variables.yml file.
+#
+# If the substitution value comes from an environment variable, it must be
+# set before invoking Great Expectations.
+#
+# If the substitution value comes from a config_variables.yml file, the value
+# can be dynamically changed without modifying the great_expectations.yml file.
+config_variables_file_path: uncommitted/config_variables.yml
+
+# The plugins_directory will be added to your python path for custom modules
+# used to override and extend Great Expectations.
+plugins_directory: plugins/
+
+stores:
+  # Stores are configurable places to store things like Expectations, Validations
+  # Data Docs, and more. These are for advanced users only - most users can simply
+  # leave this section alone.
+  expectations_store:
+    class_name: ExpectationsStore
+    store_backend:
+      class_name: TupleFilesystemStoreBackend
+      base_directory: expectations/
+
+  validation_results_store:
+    class_name: ValidationResultsStore
+    store_backend:
+      class_name: TupleFilesystemStoreBackend
+      base_directory: uncommitted/validations
+
+  checkpoint_store:
+    class_name: CheckpointStore
+    store_backend:
+      class_name: TupleFilesystemStoreBackend
+      base_directory: checkpoints/
+
+  evaluation_parameter_store:
+    class_name: EvaluationParameterStore
+
+expectations_store_name: expectations_store
+validation_results_store_name: validation_results_store
+evaluation_parameter_store_name: evaluation_parameter_store
+checkpoint_store_name: checkpoint_store
+
+data_docs_sites:
+  # Data Docs make it simple to visualize data quality in your project. These
+  # include Expectations, Validations & Profiles. These are for advanced users
+  # only - most users can simply leave this section alone.
+  local_site:
+    class_name: SiteBuilder
+    show_how_to_buttons: true
+    store_backend:
+      class_name: TupleFilesystemStoreBackend
+      base_directory: uncommitted/data_docs/local_site/
+    site_index_builder:
+      class_name: DefaultSiteIndexBuilder
+
+anonymous_usage_statistics:
+  data_context_id: foxa-ge-context-001
+  enabled: false
+
+notebooks:
+fluent_datasources:
+  default_datasource:
+    type: pandas
+fluent_datasource_name: foxa_datasource

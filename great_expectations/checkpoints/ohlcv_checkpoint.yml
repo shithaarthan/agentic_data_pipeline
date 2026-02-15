@@ -1,0 +1,24 @@
+name: ohlcv_checkpoint
+config_version: 1.0
+
+validations:
+  - batch_request:
+      datasource_name: foxa_lakehouse
+      data_connector_name: default_inferred_data_connector
+      data_asset_name: ohlcv
+    expectation_suite_name: bronze_ohlcv_suite
+    action_list:
+      - name: store_validation_result
+        action:
+          class_name: StoreValidationResultAction
+      - name: update_data_docs
+        action:
+          class_name: UpdateDataDocsAction
+      - name: send_slack_notification
+        action:
+          class_name: SlackNotificationAction
+          slack_webhook: ${SLACK_WEBHOOK_URL}
+          notify_on: failure
+          renderer:
+            module_name: great_expectations.render.renderer.slack_renderer
+            class_name: SlackRenderer
