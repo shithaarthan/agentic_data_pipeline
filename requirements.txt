@@ -54,6 +54,3 @@ httpx>=0.25.0
 pyotp>=2.9.0
 rich>=13.7.0
 
-# Visualization (optional)
-plotly>=5.18.0
-streamlit>=1.29.0
