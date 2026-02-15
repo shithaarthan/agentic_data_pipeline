@@ -47,6 +47,14 @@ data/ohlcv/*.parquet
 data/fundamental_cache/*.json
 data/signals/*.json
 
+# Knowledge files (keep only samples)
+knowledge/stocks/*.md
+!knowledge/stocks/RELIANCE.md
+!knowledge/stocks/TCS.md
+!knowledge/stocks/INFY.md
+!knowledge/stocks/HDFCBANK.md
+!knowledge/stocks/ICICIBANK.md
+
 # MinIO local data
 minio_data/
 
